@@ -7,5 +7,6 @@ public:
 	Window& operator = (const Window&) = delete;
 	~Window();
 
+	bool ProcessMessages();
 };
 
