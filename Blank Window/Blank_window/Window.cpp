@@ -13,7 +13,9 @@ Window::Window()
 	wndClass.hInstance = m_hInstance;
 	//You can load an icon using a macro called the LoadIcon
 	wndClass.hIcon = LoadIcon(NULL, IDI_WINLOGO);
-
+	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	//Not yet implemented, fix later->leave as nullptr for now
+	wndClass.lpfnWndProc = nullptr;
 }
 
 Window::~Window()
