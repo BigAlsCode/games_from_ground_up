@@ -30,8 +30,8 @@ Window::Window()
 	//You can load an icon using a macro called the LoadIcon
 	wndClass.hIcon = LoadIcon(NULL, IDI_WINLOGO);
 	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-	//Not yet implemented, fix later->leave as nullptr for now
-	wndClass.lpfnWndProc = nullptr;
+	
+	wndClass.lpfnWndProc = WindowProc;
 
 	//This takes a pointer to the window class object
 	RegisterClass(&wndClass);
@@ -82,6 +82,20 @@ Window::~Window()
 
 bool Window::ProcessMessages()
 {
-	return false;
+	//Simple message object
+	MSG msg = {};
+
+	while (PeekMessage(&msg, nullptr, 0u, 0u, PM_REMOVE)) {
+
+		if (msg.message == WM_QUIT) {
+			return false; //quites the program when PostQuitMessage is activated
+		}
+
+		TranslateMessage(&msg);//to translate physical inputs
+		DispatchMessage(&msg);
+
+	}
+
+	return true;
 }
 
