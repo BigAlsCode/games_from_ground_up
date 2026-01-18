@@ -1,4 +1,7 @@
 #pragma once
+#include <Windows.h>
+
+
 class Window
 {
 public:
@@ -8,5 +11,10 @@ public:
 	~Window();
 
 	bool ProcessMessages();
+
+private:
+	HINSTANCE m_hInstance;
+	HWND m_hWnd;
+
 };
 
