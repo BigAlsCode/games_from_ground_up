@@ -56,7 +56,7 @@ Window::Window()
 	m_hWnd = CreateWindowEx(
 		0,
 		CLASS_NAME,
-		L"Title",
+		L"Blank Window",
 		style,
 		rect.left,
 		rect.top,
