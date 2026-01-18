@@ -1,5 +1,21 @@
 #include "Window.h"
 
+LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch (uMsg)
+	{
+	case WM_CLOSE:
+		DestroyWindow(hWnd);
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+	}
+
+	return DefWindowProc(hWnd, uMsg, wParam, lParam);
+}
+
+
 Window::Window() 
 	: m_hInstance(GetModuleHandle(nullptr))
 {
@@ -52,13 +68,20 @@ Window::Window()
 		NULL
 	);
 
+	ShowWindow(m_hWnd, SW_SHOW);
 }
 
 Window::~Window()
 {
+	const wchar_t* CLASS_NAME = L"Al's Window Class";
+
+	UnregisterClass(CLASS_NAME, m_hInstance);
+
+
 }
 
 bool Window::ProcessMessages()
 {
 	return false;
 }
+
