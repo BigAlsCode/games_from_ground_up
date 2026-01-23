@@ -16,6 +16,5 @@ public:
 private:
 	HINSTANCE m_hInstance;
 	HWND m_hWnd;
-
 };
 

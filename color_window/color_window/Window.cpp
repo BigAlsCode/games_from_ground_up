@@ -1,5 +1,8 @@
 #include "Window.h"
 
+//Global HBRUSH
+HBRUSH hBrush=NULL;
+
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg)
@@ -8,6 +11,10 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		DestroyWindow(hWnd);
 		break;
 	case WM_DESTROY:
+		if (hBrush) {
+			DeleteObject(hBrush);
+			hBrush = NULL;
+		}
 		PostQuitMessage(0);
 		return 0;
 	}
@@ -33,8 +40,13 @@ Window::Window()
 	
 	wndClass.lpfnWndProc = WindowProc;
 
+	//Color 
+	hBrush = CreateSolidBrush(RGB(0, 0, 0));
+	wndClass.hbrBackground = hBrush;
+
 	//This takes a pointer to the window class object
 	RegisterClass(&wndClass);
+
 
 	DWORD style = WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU; //gives title, min and close buttons, and sysmenu displays the buttons
 
